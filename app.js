@@ -56,8 +56,8 @@ function show() {
     flag1.setAttribute('src', country1.flags.png)
     flag2.setAttribute('src', country2.flags.png)
 
-    name1.innerHTML = country1.name.common
-    name2.innerHTML = country2.name.common
+    name1.innerHTML = country1.name.official
+    name2.innerHTML = country2.name.official
 }
 
 function check() {
