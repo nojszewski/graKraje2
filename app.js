@@ -1,7 +1,7 @@
 let correct = 0
 let unCorrect = 0
-let counter = correct + unCorrect + 1
 let country1, country2
+let attempts = 0
 
 async function getData() {
     const res = await fetch("https://restcountries.com/v3.1/all")
@@ -11,7 +11,7 @@ async function getData() {
 
 async function draw() {
     const countries = await getData()
-    
+
     country1 = countries[Math.floor(Math.random() * countries.length)]
     country2 = countries[Math.floor(Math.random() * countries.length)]
 
@@ -51,41 +51,33 @@ function check() {
     const correctText = document.querySelector('#correctText')
     const unCorrectText = document.querySelector('#unCorrectText')
 
-    country1Box.addEventListener('click', () => {
-        if (counter == 5) {
-            alert('Koniec gry')
+    const handleClick = (isCorrect) => {
+        attempts++
+        if (isCorrect) {
+            correct++
             correctText.innerHTML = `Poprawne: ${correct}`
+        } else {
+            unCorrect++
             unCorrectText.innerHTML = `Niepoprawne: ${unCorrect}`
+        }
+
+        if (attempts === 5) {
+            alert(`Koniec gry!\nPoprawne: ${correct}\nNiepoprawne: ${unCorrect}`)
+            attempts = 0
+            correct = 0
+            unCorrect = 0
             window.location.reload()
         } else {
-            if (country1.population > country2.population) {
-                correct++
-                correctText.innerHTML = `Poprawne: ${correct}`
-            } else {
-                unCorrect++
-                unCorrectText.innerHTML = `Niepoprawne: ${unCorrect}`
-            }
             draw()
         }
+    }
+
+    country1Box.addEventListener('click', () => {
+        handleClick(country1.population > country2.population)
     })
 
     country2Box.addEventListener('click', () => {
-        if (correct == 5 || unCorrect == 5) {
-            alert('Koniec gry')
-            correct = 0
-            unCorrect = 0
-            correctText.innerHTML = `Poprawne: ${correct}`
-            unCorrectText.innerHTML = `Niepoprawne: ${unCorrect}`
-        } else {
-            if (country2.population > country1.population) {
-                correct++
-                correctText.innerHTML = `Poprawne: ${correct}`
-            } else {
-                unCorrect++
-                unCorrectText.innerHTML = `Niepoprawne: ${unCorrect}`
-            }
-            draw()
-        }
+        handleClick(country2.population > country1.population)
     })
 }
 
