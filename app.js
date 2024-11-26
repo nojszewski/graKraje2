@@ -3,6 +3,11 @@ let unCorrect = 0
 let country1, country2
 let attempts = 0
 
+const repeatBtn = document.querySelector('#repeatBtn')
+repeatBtn.addEventListener('click', () => {
+    window.location.href = 'index.html'
+})
+
 const startBtn = document.querySelector('#startBtn')
 startBtn.addEventListener('click', start)
 

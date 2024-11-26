@@ -58,3 +58,13 @@ button:focus,
 button:hover {
     background-color: darkgray;
 }
+
+#summary {
+    display: inline-block;
+    height: 250px;
+    color: black;
+}
+
+.repeatBtn {
+    margin: 50px;
+}
