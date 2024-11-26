@@ -3,11 +3,6 @@ let unCorrect = 0
 let country1, country2
 let attempts = 0
 
-const repeatBtn = document.querySelector('#repeatBtn')
-repeatBtn.addEventListener('click', () => {
-    window.location.href = 'index.html'
-})
-
 const startBtn = document.querySelector('#startBtn')
 startBtn.addEventListener('click', start)
 
@@ -27,7 +22,9 @@ function start() {
 async function getData() {
     const res = await fetch("https://restcountries.com/v3.1/all")
     const data = await res.json()
-    return data
+    const europeanCountries = data.filter(country => country.region === 'Europe')
+
+    return europeanCountries
 }
 
 async function draw() {
@@ -61,8 +58,8 @@ function show() {
     flag1.setAttribute('src', country1.flags.png)
     flag2.setAttribute('src', country2.flags.png)
 
-    name1.innerHTML = country1.name.official
-    name2.innerHTML = country2.name.official
+    name1.innerHTML = country1.name.common
+    name2.innerHTML = country2.name.common
 }
 
 function check() {
