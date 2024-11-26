@@ -3,6 +3,22 @@ let unCorrect = 0
 let country1, country2
 let attempts = 0
 
+const startBtn = document.querySelector('#startBtn')
+startBtn.addEventListener('click', start)
+
+function start() {
+    const country1Box = document.querySelector('#countryBox1')
+    const country2Box = document.querySelector('#countryBox2')
+
+    country1Box.style.display = 'inline-block'
+    country2Box.style.display = 'inline-block'
+
+    startBtn.style.display = 'none'
+
+    draw()
+    check()
+}
+
 async function getData() {
     const res = await fetch("https://restcountries.com/v3.1/all")
     const data = await res.json()
@@ -80,6 +96,3 @@ function check() {
         handleClick(country2.population > country1.population)
     })
 }
-
-draw()
-check()
